@@ -16,6 +16,11 @@
 		C7A780DF27299DA500A4B272 /* MessengerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A780DE27299DA500A4B272 /* MessengerTests.swift */; };
 		C7A780E927299DA500A4B272 /* MessengerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A780E827299DA500A4B272 /* MessengerUITests.swift */; };
 		C7A780EB27299DA500A4B272 /* MessengerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A780EA27299DA500A4B272 /* MessengerUITestsLaunchTests.swift */; };
+		C7A7810027299F3E00A4B272 /* ConversationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A780FF27299F3D00A4B272 /* ConversationVC.swift */; };
+		C7A7810227299F6600A4B272 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7810127299F6600A4B272 /* LoginVC.swift */; };
+		C7A7810527299F8600A4B272 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7810427299F8600A4B272 /* RegisterVC.swift */; };
+		C7A7810727299F9900A4B272 /* NewConversationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7810627299F9900A4B272 /* NewConversationVC.swift */; };
+		C7A7810927299FBC00A4B272 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7810827299FBC00A4B272 /* ProfileVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +54,11 @@
 		C7A780E427299DA500A4B272 /* MessengerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MessengerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A780E827299DA500A4B272 /* MessengerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerUITests.swift; sourceTree = "<group>"; };
 		C7A780EA27299DA500A4B272 /* MessengerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C7A780FF27299F3D00A4B272 /* ConversationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationVC.swift; sourceTree = "<group>"; };
+		C7A7810127299F6600A4B272 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		C7A7810427299F8600A4B272 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
+		C7A7810627299F9900A4B272 /* NewConversationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationVC.swift; sourceTree = "<group>"; };
+		C7A7810827299FBC00A4B272 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,9 +112,11 @@
 				C7A780C727299DA300A4B272 /* AppDelegate.swift */,
 				C7A780C927299DA300A4B272 /* SceneDelegate.swift */,
 				C7A780CB27299DA300A4B272 /* ViewController.swift */,
-				C7A780CD27299DA300A4B272 /* Main.storyboard */,
+				C7A780FB27299E1C00A4B272 /* Views */,
+				C7A780F727299DD100A4B272 /* Controllers */,
 				C7A780D027299DA400A4B272 /* Assets.xcassets */,
-				C7A780D227299DA400A4B272 /* LaunchScreen.storyboard */,
+				C7A780FD27299E8900A4B272 /* Resources */,
+				C7A780FC27299E6600A4B272 /* Models */,
 				C7A780D527299DA400A4B272 /* Info.plist */,
 			);
 			path = Messenger;
@@ -125,6 +137,73 @@
 				C7A780EA27299DA500A4B272 /* MessengerUITestsLaunchTests.swift */,
 			);
 			path = MessengerUITests;
+			sourceTree = "<group>";
+		};
+		C7A780F727299DD100A4B272 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C7A780FA27299E0900A4B272 /* Profile */,
+				C7A780F927299DFB00A4B272 /* Conversation */,
+				C7A780F827299DE500A4B272 /* Authentication */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C7A780F827299DE500A4B272 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				C7A7810127299F6600A4B272 /* LoginVC.swift */,
+				C7A7810427299F8600A4B272 /* RegisterVC.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		C7A780F927299DFB00A4B272 /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				C7A780FF27299F3D00A4B272 /* ConversationVC.swift */,
+				C7A7810627299F9900A4B272 /* NewConversationVC.swift */,
+			);
+			path = Conversation;
+			sourceTree = "<group>";
+		};
+		C7A780FA27299E0900A4B272 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				C7A7810827299FBC00A4B272 /* ProfileVC.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		C7A780FB27299E1C00A4B272 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C7A780FE27299ECF00A4B272 /* Storyboards */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C7A780FC27299E6600A4B272 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C7A780FD27299E8900A4B272 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C7A780FE27299ECF00A4B272 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				C7A780CD27299DA300A4B272 /* Main.storyboard */,
+				C7A780D227299DA400A4B272 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,7 +339,12 @@
 			files = (
 				C7A780CC27299DA300A4B272 /* ViewController.swift in Sources */,
 				C7A780C827299DA300A4B272 /* AppDelegate.swift in Sources */,
+				C7A7810727299F9900A4B272 /* NewConversationVC.swift in Sources */,
 				C7A780CA27299DA300A4B272 /* SceneDelegate.swift in Sources */,
+				C7A7810927299FBC00A4B272 /* ProfileVC.swift in Sources */,
+				C7A7810527299F8600A4B272 /* RegisterVC.swift in Sources */,
+				C7A7810027299F3E00A4B272 /* ConversationVC.swift in Sources */,
+				C7A7810227299F6600A4B272 /* LoginVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
