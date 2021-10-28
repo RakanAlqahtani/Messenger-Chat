@@ -16,6 +16,12 @@ class LoginVC: UIViewController {
     }
     
 
+    @IBAction func singupAction(_ sender: UIButton) {
+        
+        let register = storyboard?.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterVC
+        
+        self.navigationController?.pushViewController(register, animated: true)
+    }
     /*
     // MARK: - Navigation
 
