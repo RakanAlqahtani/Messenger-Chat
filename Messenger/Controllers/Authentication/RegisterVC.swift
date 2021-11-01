@@ -6,10 +6,15 @@
 //
 
 import UIKit
-
+import Firebase
+import FirebaseAuth
 class RegisterVC: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
 
+    @IBOutlet weak var emailText: UITextField!
+    @IBOutlet weak var passwordText: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,6 +25,23 @@ class RegisterVC: UIViewController {
         presentPhotoPicker()
         print(")000000")
     }
+    
+    @IBAction func registerAction(_ sender: UIButton) {
+        
+        guard let email = emailText.text else {return}
+        
+        guard let password = passwordText.text else {return}
+
+        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { authResult , error  in
+            guard let result = authResult, error == nil else {
+                print("Error creating user")
+                return
+            }
+            let user = result.user
+            print("Created User: \(user)")
+        })
+    }
+    
     
     /*
     // MARK: - Navigation

@@ -6,9 +6,14 @@
 //
 
 import UIKit
-
+import Firebase
+import FirebaseAuth
 class LoginVC: UIViewController {
 
+    @IBOutlet weak var emailTextField: UITextField!
+    
+    @IBOutlet weak var passwordTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -16,6 +21,23 @@ class LoginVC: UIViewController {
     }
     
 
+    @IBAction func loginAction(_ sender: UIButton) {
+        
+        guard let email = emailTextField.text else {return}
+        
+        guard let password = passwordTextField.text else {return}
+        
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { authResult, error in
+            guard let result = authResult, error == nil else {
+                print("Failed to log in user with email \(email)")
+                return
+            }
+            let user = result.user
+            print("logged in user: \(user)")
+        })
+    }
+    
+    
     @IBAction func singupAction(_ sender: UIButton) {
         
         let register = storyboard?.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterVC

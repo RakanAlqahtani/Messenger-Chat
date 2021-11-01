@@ -73,6 +73,9 @@
                                                         <integer key="value" value="25"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="loginAction:" destination="JCX-b4-lPj" eventType="touchUpInside" id="lIr-mA-jdc"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FeX-I4-dpp">
                                                 <rect key="frame" x="16" y="85" width="382" height="50"/>
@@ -131,6 +134,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="FG6-7V-llz"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="3tU-07-h2r" id="qjG-CO-tU4"/>
+                        <outlet property="passwordTextField" destination="Xv0-Pz-cLo" id="1RV-ro-wI2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mFB-S8-gvQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -195,6 +202,9 @@
                                                 <color key="tintColor" red="0.84705877299999999" green="0.89019608500000003" blue="0.96470588450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Register"/>
+                                                <connections>
+                                                    <action selector="registerAction:" destination="Ipe-q2-n1j" eventType="touchUpInside" id="EgD-xk-aQq"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
@@ -216,7 +226,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="emailText" destination="t3J-HS-KGn" id="bZi-qW-Erh"/>
                         <outlet property="imageView" destination="t2N-fd-clh" id="Xk6-Jc-6LR"/>
+                        <outlet property="passwordText" destination="9SA-bm-FjV" id="2ho-Hc-pnU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iHN-rv-D0y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
