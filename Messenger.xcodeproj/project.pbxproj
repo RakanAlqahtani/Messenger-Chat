@@ -14,6 +14,7 @@
 		C71514C7272EC4DF001971A4 /* FirebaseInAppMessaging-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = C71514C6272EC4DF001971A4 /* FirebaseInAppMessaging-Beta */; };
 		C71514C9272EC4DF001971A4 /* FirebaseInAppMessagingSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = C71514C8272EC4DF001971A4 /* FirebaseInAppMessagingSwift-Beta */; };
 		C71514CF272F3E18001971A4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C71514CE272F3E18001971A4 /* GoogleService-Info.plist */; };
+		C71514D127300B5C001971A4 /* DatabaseManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71514D027300B5C001971A4 /* DatabaseManger.swift */; };
 		C7A780C827299DA300A4B272 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A780C727299DA300A4B272 /* AppDelegate.swift */; };
 		C7A780CA27299DA300A4B272 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A780C927299DA300A4B272 /* SceneDelegate.swift */; };
 		C7A780CF27299DA300A4B272 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7A780CD27299DA300A4B272 /* Main.storyboard */; };
@@ -49,6 +50,7 @@
 /* Begin PBXFileReference section */
 		C71514BD272EC238001971A4 /* Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extention.swift; sourceTree = "<group>"; };
 		C71514CE272F3E18001971A4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C71514D027300B5C001971A4 /* DatabaseManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManger.swift; sourceTree = "<group>"; };
 		C7A780C427299DA300A4B272 /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A780C727299DA300A4B272 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7A780C927299DA300A4B272 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				C7A780C727299DA300A4B272 /* AppDelegate.swift */,
 				C7A780C927299DA300A4B272 /* SceneDelegate.swift */,
 				C71514BD272EC238001971A4 /* Extention.swift */,
+				C71514D027300B5C001971A4 /* DatabaseManger.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				C7A7810727299F9900A4B272 /* NewConversationVC.swift in Sources */,
 				C7A780CA27299DA300A4B272 /* SceneDelegate.swift in Sources */,
 				C7A7810927299FBC00A4B272 /* ProfileVC.swift in Sources */,
+				C71514D127300B5C001971A4 /* DatabaseManger.swift in Sources */,
 				C7A7810527299F8600A4B272 /* RegisterVC.swift in Sources */,
 				C7A7810027299F3E00A4B272 /* ConversationVC.swift in Sources */,
 				C7A7810227299F6600A4B272 /* LoginVC.swift in Sources */,

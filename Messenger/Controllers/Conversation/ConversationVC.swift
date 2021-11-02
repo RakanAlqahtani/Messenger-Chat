@@ -6,24 +6,46 @@
 //
 
 import UIKit
-
+import FirebaseAuth
 class ConversationVC: UIViewController {
 
     override func viewDidLoad() {
-        super.viewDidLoad()
+           super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
+           do {
+               try FirebaseAuth.Auth.auth().signOut()
+           }
+           catch {
+           }
+        DatabaseManger.shared.test() // call test!
+
+       }
+       override func viewDidAppear(_ animated: Bool) {
+           super.viewDidAppear(animated)
+     
+           validateAuth()
+       }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func singOutAction(_ sender: Any) {
+        
+            do {
+            try FirebaseAuth.Auth.auth().signOut()
+                validateAuth()
+        }
+        catch {
+        }
+    
     }
-    */
+ 
+    
+       
+       private func validateAuth(){
+           // current user is set automatically when you log a user in
+           if FirebaseAuth.Auth.auth().currentUser == nil {
+               // present login view controller
+               let vc = storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+               self.navigationController?.pushViewController(vc, animated: true)
+           }
+       }
 
 }

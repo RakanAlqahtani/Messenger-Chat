@@ -16,7 +16,8 @@ class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+       
         // Do any additional setup after loading the view.
     }
     
@@ -27,14 +28,33 @@ class LoginVC: UIViewController {
         
         guard let password = passwordTextField.text else {return}
         
-        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { authResult, error in
+        
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { [weak self] authResult, error in
+            guard let strongSelf = self else {
+                return
+            }
             guard let result = authResult, error == nil else {
                 print("Failed to log in user with email \(email)")
                 return
             }
             let user = result.user
             print("logged in user: \(user)")
+            // if this succeeds, dismiss
+            strongSelf.navigationController?.popViewController(animated: true)
+
         })
+
+        
+//        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { authResult, error in
+//            guard let result = authResult, error == nil else {
+//                print("Failed to log in user with email \(email)")
+//                return
+//            }
+//            let user = result.user
+//            print("logged in user: \(user)")
+//
+//
+//        })
     }
     
     

@@ -10,7 +10,9 @@ import Firebase
 import FirebaseAuth
 class RegisterVC: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
-
+    @IBOutlet weak var firstNameText: UITextField!
+    
+    @IBOutlet weak var lastNameText: UITextField!
     @IBOutlet weak var emailText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
     
@@ -39,7 +41,19 @@ class RegisterVC: UIViewController {
             }
             let user = result.user
             print("Created User: \(user)")
+            self.insetUserOnDatabase()
         })
+    }
+    
+    func insetUserOnDatabase() {
+        let user : ChatAppUser = ChatAppUser(firstName: firstNameText.text!, lastName: lastNameText.text!, emailAddress: emailText.text!)
+        
+        
+//        user2.firstName = firstNameText.text!
+//        user2.lastName = lastNameText.text!
+//        user2.emailAddress = emailText.text!
+        DatabaseManger.shared.insertUser(with: user)
+        
     }
     
     
@@ -94,9 +108,10 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
         guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
             return
         }
-        
+        self.imageView.layer.cornerRadius = (self.imageView.frame.size.height / 2)
         self.imageView.image = selectedImage
-        
+        self.imageView.layer.masksToBounds = true
+
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
