@@ -56,6 +56,10 @@ class RegisterVC: UIViewController {
         
     }
     
+    @IBAction func loginAction(_ sender: UIButton) {
+        
+        self.navigationController?.popViewController(animated: true)
+    }
     
     /*
     // MARK: - Navigation
