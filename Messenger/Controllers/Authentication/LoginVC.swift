@@ -9,8 +9,10 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import FBSDKLoginKit
+import JGProgressHUD
 class LoginVC : UIViewController , LoginButtonDelegate  {
-    
+    private let spinner = JGProgressHUD(style: .dark)
+
 
         
     @IBOutlet weak var facebookLoginButton: UIButton!
@@ -28,28 +30,7 @@ class LoginVC : UIViewController , LoginButtonDelegate  {
                }else{
                    // Show the Home ViewController
                }
-        
-//
-//        if let token = AccessToken.current, !token.isExpired {
-//
-//            let token = token.tokenString
-//            let request = FBSDKLoginKit.GraphRequest(graphPath: "me", parameters: ["fields": "email , name"] , tokenString: token, version: nil, httpMethod: .get)
-//
-//            request.start(completionHandler : {connection , result , error in
-//                print("\(result)")
-//
-//            })
-//        } else {
-//
-////
-////            let log = FBLoginButton()
-//
-//        let  facebookLogin = FBLoginButton()
-//            facebookLoginButton = facebookLogin
-//            facebookLoginButton.delegate = self
-//
-//        }
-//
+
         // Do any additional setup after loading the view.
     }
     
@@ -163,11 +144,13 @@ class LoginVC : UIViewController , LoginButtonDelegate  {
         
         guard let password = passwordTextField.text else {return}
         
-        
+        spinner.show(in: view)
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { [weak self] authResult, error in
-            //            guard let strongSelf = self else {
-            //                return
-            //            }
+                        guard let strongSelf = self else {
+                            return
+                        }
+
+           
             guard let result = authResult, error == nil else {
                 print("Failed to log in user with email \(email)")
                 return
@@ -181,6 +164,10 @@ class LoginVC : UIViewController , LoginButtonDelegate  {
             
             // This is to get the SceneDelegate object from your view controller
             // then call the change root view controller function to change to main tab bar
+            DispatchQueue.main.async {
+                strongSelf.spinner.dismiss()
+
+            }
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
             
             

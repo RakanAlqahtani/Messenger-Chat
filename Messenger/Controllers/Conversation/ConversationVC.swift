@@ -7,17 +7,17 @@
 
 import UIKit
 import FirebaseAuth
+import JGProgressHUD
 class ConversationVC: UIViewController {
+    private let spinner = JGProgressHUD(style: .dark)
     
+    @IBOutlet weak var newConversationButton: UIBarButtonItem!
+    @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //           do {
-        //               try FirebaseAuth.Auth.auth().signOut()
-        //           }
-        //           catch {
-        //           }
-        DatabaseManger.shared.test() // call test!
+        setUpTableView()
+       
+        DatabaseManger.shared.test() // 
         
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -26,14 +26,12 @@ class ConversationVC: UIViewController {
         validateAuth()
     }
     
-    @IBAction func singOutAction(_ sender: Any) {
+   
+    @IBAction func newConversationButtonAction(_ sender: UIBarButtonItem) {
         
-        do {
-            try FirebaseAuth.Auth.auth().signOut()
-            validateAuth()
-        }
-        catch {
-        }
+        let vc = NewConversationVC()
+        let nviVC = UINavigationController(rootViewController: vc)
+        present(nviVC, animated: true)
         
     }
     
@@ -42,31 +40,47 @@ class ConversationVC: UIViewController {
     private func validateAuth(){
         // current user is set automatically when you log a user in
         if FirebaseAuth.Auth.auth().currentUser == nil {
-            // present login view controller
-            //               guard let strongSelf = self else {
-            //                   return
-            //               }
-            
-            
-            //               let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-            //
-            //               let vc = storyboard.instantiateViewController(withIdentifier: "LoginVC")
-            //
-            //               self.navigationController?.pushViewController(vc, animated: true)
-            //
-            //               vc.tabBarController?.tabBar.isHidden = true\\
-            
+           
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavigationController")
             
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
         }
-        
-        //               let vc = storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
-        //                         self.navigationController?.popViewController(animated: true)
-    }
+        }
     
+    private func setUpTableView(){
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+    }
+    private  func fetchConversation(){}
 }
 
 
+extension ConversationVC : UITableViewDelegate , UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        
+        cell.textLabel?.text = "Hello World"
+        cell.accessoryType = .disclosureIndicator
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+            let vc = ChatVC()
+            vc.title = "Jenny Smith"
+            vc.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    
+    
+}

@@ -8,7 +8,12 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import JGProgressHUD
 class RegisterVC: UIViewController {
+    
+    private let spinner = JGProgressHUD(style: .dark)
+
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var firstNameText: UITextField!
     
@@ -30,10 +35,40 @@ class RegisterVC: UIViewController {
     
     @IBAction func registerAction(_ sender: UIButton) {
         
-        guard let email = emailText.text else {return}
+        guard let email = emailText.text,
+      let password = passwordText.text,
+              let firstName = firstNameText.text,
+                let lastName = lastNameText.text,
+                !email.isEmpty,
+              !password.isEmpty,
+              !firstName.isEmpty,
+              !lastName.isEmpty
+                
+        else {
+            self.alertUserErrorLogin()
+            return
+            
+        }
         
-        guard let password = passwordText.text else {return}
+        spinner.show(in: view)
 
+        
+        DatabaseManger.shared.userExists(with: email, completion: {
+            exits in
+            
+            DispatchQueue.main.async {
+              self.spinner.dismiss()
+
+            }
+            guard !exits else {
+                self.alertUserErrorLogin()
+                return
+            }
+            
+        })
+                                         
+                                         
+                                         
         FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { authResult , error  in
             guard let result = authResult, error == nil else {
                 print("Error creating user")
@@ -45,6 +80,13 @@ class RegisterVC: UIViewController {
         })
     }
     
+    private func alertUserErrorLogin(){
+        
+        let alert = UIAlertController(title: "Title", message: "Plaes fill all the text", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Button", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+  
     func insetUserOnDatabase() {
         let user : ChatAppUser = ChatAppUser(firstName: firstNameText.text!, lastName: lastNameText.text!, emailAddress: emailText.text!)
         
