@@ -45,7 +45,7 @@ class RegisterVC: UIViewController {
               !lastName.isEmpty
                 
         else {
-            self.alertUserErrorLogin()
+            self.alertUserErrorRegister()
             return
             
         }
@@ -56,12 +56,8 @@ class RegisterVC: UIViewController {
         DatabaseManger.shared.userExists(with: email, completion: {
             exits in
             
-            DispatchQueue.main.async {
-              self.spinner.dismiss()
-
-            }
+            
             guard !exits else {
-                self.alertUserErrorLogin()
                 return
             }
             
@@ -69,32 +65,73 @@ class RegisterVC: UIViewController {
                                          
                                          
                                          
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { authResult , error  in
+        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { [self] authResult , error  in
+            
+            
             guard let result = authResult, error == nil else {
                 print("Error creating user")
+                self.spinner.dismiss()
+
                 return
             }
             let user = result.user
+            
+           self.spinner.show(in: view)
+
             print("Created User: \(user)")
             self.insetUserOnDatabase()
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
+          
+            DispatchQueue.main.async {
+                self.spinner.dismiss()
+                
+
+            }
+            
+           
         })
     }
     
-    private func alertUserErrorLogin(){
+    private func alertUserErrorRegister(){
         
-        let alert = UIAlertController(title: "Title", message: "Plaes fill all the text", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Button", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        
+            let alert = UIAlertController(title: "Miss Some thing",
+                                          message: "Please Entry all inforamtion to create an account", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title:"Ok", style: .cancel, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
+            
+        
+        
+        
     }
   
     func insetUserOnDatabase() {
         let user : ChatAppUser = ChatAppUser(firstName: firstNameText.text!, lastName: lastNameText.text!, emailAddress: emailText.text!)
         
-        
-//        user2.firstName = firstNameText.text!
-//        user2.lastName = lastNameText.text!
-//        user2.emailAddress = emailText.text!
-        DatabaseManger.shared.insertUser(with: user)
+        DatabaseManger.shared.insertUser(with: user, completion:  { success in
+            if success {
+                // upload image
+               guard let image = self.imageView.image,
+                    let data = image.pngData() else {
+                    
+                    return
+                }
+                
+                let fileName = user.profilePictureFileName
+                StorageManager.shared.uploadProfilePicture(with: data, fileName: fileName) { result in
+                    switch result {
+                    case .success(let downloadUrl):
+                        UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
+                        print(downloadUrl)
+                    case .failure(let error):
+                        print("Stroge manger error \(error)")
+                    }
+                    
+                }
+            }
+        })
         
     }
     
@@ -144,7 +181,7 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
         vc.allowsEditing = true
         present(vc, animated: true)
     }
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // take a photo or select a photo
         
         // action sheet - take photo or choose photo

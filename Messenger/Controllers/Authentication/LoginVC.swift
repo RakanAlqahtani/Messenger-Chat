@@ -14,7 +14,7 @@ class LoginVC : UIViewController , LoginButtonDelegate  {
     private let spinner = JGProgressHUD(style: .dark)
 
 
-        
+    
     @IBOutlet weak var facebookLoginButton: UIButton!
     
     
@@ -24,15 +24,20 @@ class LoginVC : UIViewController , LoginButtonDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if isLoggedIn() {
-                   // Show the ViewController with the logged in user
-               }else{
-                   // Show the Home ViewController
-               }
+//        
+//        if isLoggedIn() {
+//                   // Show the ViewController with the logged in user
+//            
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
+//               }else{
+//                   // Show the Home ViewController
+//               }
 
         // Do any additional setup after loading the view.
     }
+    
+    
     
     
         @IBAction func facebookLogin(_ sender: UIButton) {
@@ -40,19 +45,7 @@ class LoginVC : UIViewController , LoginButtonDelegate  {
             self.loginButtonClicked()
             
             
-//
-//            if let token = AccessToken.current, !token.isExpired {
-//
-//                loginButton(<#FBLoginButton#>, didCompleteWith: <#LoginManagerLoginResult?#>, error: <#Error?#>)
-//            } else {
-//
-//
-//                let loginButton = FBLoginButton()
-//
-//                loginButton.center = view.center
-//                loginButton.delegate = self
-//                loginButton.permissions = ["public_profile", "email"]
-//                view.addSubview(loginButton)
+
     
             }
     
@@ -138,6 +131,17 @@ class LoginVC : UIViewController , LoginButtonDelegate  {
             })
         }
     
+    
+    func alertWorngEmail(){
+        
+        let alert = UIAlertController(title: "Incorrect Username",
+                                      message: "Please check your username and try again.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title:"Ok", style: .default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
     @IBAction func loginAction(_ sender: UIButton) {
         
         guard let email = emailTextField.text else {return}
@@ -150,9 +154,15 @@ class LoginVC : UIViewController , LoginButtonDelegate  {
                             return
                         }
 
-           
+
             guard let result = authResult, error == nil else {
                 print("Failed to log in user with email \(email)")
+                strongSelf.alertWorngEmail()
+                DispatchQueue.main.async {
+                    strongSelf.spinner.dismiss()
+
+                }
+            
                 return
             }
             let user = result.user
@@ -161,9 +171,7 @@ class LoginVC : UIViewController , LoginButtonDelegate  {
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
-            
-            // This is to get the SceneDelegate object from your view controller
-            // then call the change root view controller function to change to main tab bar
+          
             DispatchQueue.main.async {
                 strongSelf.spinner.dismiss()
 
