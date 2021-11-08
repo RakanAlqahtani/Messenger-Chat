@@ -17,7 +17,7 @@ class ConversationVC: UIViewController {
         super.viewDidLoad()
         setUpTableView()
        
-        DatabaseManger.shared.test() // 
+//        DatabaseManger.shared.test() // 
         
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -30,12 +30,27 @@ class ConversationVC: UIViewController {
     @IBAction func newConversationButtonAction(_ sender: UIBarButtonItem) {
         
         let vc = NewConversationVC()
+        vc.completion = {[weak self] result in
+            self?.createNewConversation(result: result)
+        }
         let nviVC = UINavigationController(rootViewController: vc)
         present(nviVC, animated: true)
         
     }
     
-    
+    private func createNewConversation(result : [String : String]){
+        guard let name = result["name"] ,
+                let email = result["email"]
+        else {
+            return
+            
+        }
+        let vc = ChatVC(with: email)
+        vc.isNewConversation = true
+        vc.title = name
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     private func validateAuth(){
         // current user is set automatically when you log a user in
@@ -76,7 +91,7 @@ extension ConversationVC : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             tableView.deselectRow(at: indexPath, animated: true)
             
-            let vc = ChatVC()
+            let vc = ChatVC(with: "fackemail@gmail.com")
             vc.title = "Jenny Smith"
             vc.navigationItem.largeTitleDisplayMode = .never
             navigationController?.pushViewController(vc, animated: true)

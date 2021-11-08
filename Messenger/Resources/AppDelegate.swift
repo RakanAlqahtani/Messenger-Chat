@@ -11,7 +11,7 @@ import Firebase
 //
 // AppDelegate.swift
 import UIKit
-import FBSDKCoreKit
+//import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,28 +21,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
           
-        ApplicationDelegate.shared.application(
-            application,
-            didFinishLaunchingWithOptions: launchOptions
-        )
+//        UIApplication.shared.application(
+//            application,
+//            didFinishLaunchingWithOptions: launchOptions
+//        )
         FirebaseApp.configure()
 
         return true
     }
           
-    func application(
-        _ app: UIApplication,
-        open url: URL,
-        options: [UIApplication.OpenURLOptionsKey : Any] = [:]
-    ) -> Bool {
-
-        ApplicationDelegate.shared.application(
-            app,
-            open: url,
-            sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-            annotation: options[UIApplication.OpenURLOptionsKey.annotation]
-        )
-    }
+//    func application(
+//        _ app: UIApplication,
+//        open url: URL,
+//        options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+//    ) -> Bool {
+////
+////        UIApplication.shared.application(
+////            app,
+////            open: url,
+////            sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+////            annotation: options[UIApplication.OpenURLOptionsKey.annotation]
+////        )
+//    }
     
 }
 

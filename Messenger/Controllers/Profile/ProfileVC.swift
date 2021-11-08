@@ -9,8 +9,12 @@ import UIKit
 import FirebaseAuth
 class ProfileVC: UIViewController {
     
+    
+    @IBOutlet weak var imageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setImageProfile()
         
         // Do any additional setup after loading the view.
     }
@@ -38,8 +42,39 @@ class ProfileVC: UIViewController {
     }
     
     
+    func setImageProfile(){
+        
+        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {return}
+        let safeEmail = DatabaseManger.safeEmail(emailAddress: email)
+        let filename = safeEmail + "_profile_picture.png"
+        let path = "images/"+filename
+        
+        StorageManager.shared.downloadURL(for: path) { [weak self] result in
+            switch result {
+            case .success(let url):
+                self?.downloadImage(imageView: (self?.imageView)!, url: url)
+                print("")
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+    }
     
-    
+    func downloadImage(imageView : UIImageView , url : URL){
+        URLSession.shared.dataTask(with: url , completionHandler:  { data, _, error in
+            guard let data = data , error == nil else {return}
+            
+            DispatchQueue.main.async {
+                let image = UIImage(data: data)
+                self.imageView.layer.cornerRadius = (self.imageView.frame.size.height / 2)
+                imageView.image = image
+
+                self.imageView.layer.masksToBounds = true
+                
+            }
+        }).resume()
+    }
     private func validateAuth(){
         // current user is set automatically when you log a user in
         if FirebaseAuth.Auth.auth().currentUser == nil {
